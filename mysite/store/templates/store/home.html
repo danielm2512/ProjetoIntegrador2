@@ -1,0 +1,38 @@
+<!-- home.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Patinhas & Caudinhas!</h1>
+    <p>Aqui você poderá adquirir os melhores produtos personalizados para o seu pet!</p>
+        <!-- Formulário de Login -->
+    <h2>Faça Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ login_form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+
+    <h2>Produtos Disponíveis:</h2>
+    <ul>
+       <img src="{% static 'myapp/images/camamacrame.jpg' %}" alt="Minha Imagem">
+       <img src="{% static 'myapp/images/camamacrame3.jpg' %}" alt="Minha Imagem">
+        {% for product in products %}
+            <li>
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p>Preço: R$ {{ product.price }}</p>
+            </li>
+            
+        {% endfor %}
+    </ul>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/styles.css' %}">
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends "store/base.html" %}
+{% block title %}Filter Products{% endblock %}
+{% block content %}
+<h1>Filter Products</h1>
+<form method="post" action="{% url 'filter_products' %}">
+    {% csrf_token %}
+    <label for="gender">Gender:</label>
+    <input type="text" name="gender" id="gender" value="{{ profile.gender }}">
+    <label for="age">Age:</label>
+    <input type="number" name="age" id="age" value="{{ profile.age }}">
+    <label for="interests">Interests:</label>
+    <input type="text" name="interests" id="interests" value="{{ profile.interests }}">
+    <button type="submit">Filter</button>
+</form>
+<div class="products">
+    {% for product in products %}
+    <div class="product">
+        <h2><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h2>
+        <p>{{ product.description }}</p>
+        <p>${{ product.price }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

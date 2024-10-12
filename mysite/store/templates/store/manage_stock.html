@@ -1,0 +1,26 @@
+{% extends "store/base.html" %}
+{% block title %}Manage Stock{% endblock %}
+{% block content %}
+<h1>Manage Stock</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Material</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for material in materials %}
+        <tr>
+            <td>{{ material.name }}</td>
+            <td>{{ material.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

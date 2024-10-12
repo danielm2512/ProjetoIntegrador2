@@ -1,0 +1,11 @@
+[MASTER]
+load-plugins=pylint_django
+
+[TYPECHECK]
+generated-members=objects, DoesNotExist, MultipleObjectsReturned
+
+[pylint_django]
+django-settings-module=mysite.settings
+
+[MESSAGES CONTROL]
+disable=C0114, C0115, C0116

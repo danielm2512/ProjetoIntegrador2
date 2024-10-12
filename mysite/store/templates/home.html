@@ -1,0 +1,14 @@
+{% extends "store/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Welcome to our E-commerce Site</h1>
+<div class="products">
+    {% for product in products %}
+    <div class="product">
+        <h2><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h2>
+        <p>{{ product.description }}</p>
+        <p>${{ product.price }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
