@@ -1,4 +1,5 @@
 """shortcuts"""
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Product, Profile, Material
@@ -13,9 +14,20 @@ from django.contrib.auth.forms import AuthenticationForm
 def home(request):
     """View for the home page displaying all products."""
     products = Product.objects.all()
-        # Instanciando o formulário de autenticação
     login_form = AuthenticationForm()
-        # Passando os produtos e o formulário de autenticação para o contexto do template
+
+    if request.method == 'POST':
+        login_form = AuthenticationForm(data=request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data.get('username')
+            password = login_form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('cart')
+            else:
+                login_form.add_error(None, "Invalid username or password")
+
     return render(request, 'store/home.html', {'products': products, 'login_form': login_form})
 
 

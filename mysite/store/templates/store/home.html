@@ -5,34 +5,46 @@
 <html>
 <head>
     <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Bem-vindo ao Patinhas & Caudinhas!</h1>
-    <p>Aqui você poderá adquirir os melhores produtos personalizados para o seu pet!</p>
-        <!-- Formulário de Login -->
-    <h2>Faça Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ login_form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+    <div class="container">
+        <header>
+            <h1>Bem-vindo ao Patinhas & Caudinhas!</h1>
+            <p>Aqui você poderá adquirir os melhores produtos personalizados para o seu pet!</p>
+            <!-- Ícone de Login -->
+            <div class="login-icon" onclick="openModal()">
+                <img src="{% static 'myapp/images/login-icon.png' %}" alt="Login">
+            </div>
+            <!-- Ícone de Compra -->
+            <div class="buy-icon" onclick="redirectToCart()">
+                <img src="{% static 'myapp/images/buy-icon.png' %}" alt="Buy">
+            </div>
+        </header>
 
-    <h2>Produtos Disponíveis:</h2>
-    <ul>
-       <img src="{% static 'myapp/images/camamacrame.jpg' %}" alt="Minha Imagem">
-       <img src="{% static 'myapp/images/camamacrame3.jpg' %}" alt="Minha Imagem">
-        {% for product in products %}
-            <li>
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.description }}</p>
-                <p>Preço: R$ {{ product.price }}</p>
-            </li>
-            
-        {% endfor %}
-    </ul>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/styles.css' %}">
+        <!-- Modal de Login -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Faça Login</h2>
+                <form method="post" action="{% url 'home' %}">
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <button type="submit" class="login-button">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Produtos Disponíveis -->
+        <section class="products-section">
+            <h2>Produtos Disponíveis:</h2>
+            <div class="product-images">
+                <img src="{% static 'myapp/images/camamacrame.jpg' %}" alt="Cama Macramê">
+                <img src="{% static 'myapp/images/camamacrame3.jpg' %}" alt="Cama Macramê 3">
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>
