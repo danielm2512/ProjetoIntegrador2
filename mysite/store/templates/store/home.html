@@ -1,4 +1,3 @@
-<!-- home.html -->
 {% load static %}
 
 <!DOCTYPE html>
@@ -12,22 +11,19 @@
         <header>
             <h1>Bem-vindo ao Patinhas & Caudinhas!</h1>
             <p>Aqui você poderá adquirir os melhores produtos personalizados para o seu pet!</p>
-            <!-- Ícone de Login -->
-            <div class="login-icon" onclick="openModal()">
+            <div class="login-icon" id="login-icon" onclick="handleLoginClick()">
                 <img src="{% static 'myapp/images/login-icon.png' %}" alt="Login">
             </div>
-            <!-- Ícone de Compra -->
             <div class="buy-icon" onclick="redirectToCart()">
                 <img src="{% static 'myapp/images/buy-icon.png' %}" alt="Buy">
             </div>
         </header>
 
-        <!-- Modal de Login -->
         <div id="loginModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Faça Login</h2>
-                <form method="post" action="{% url 'home' %}">
+                <form id="login-form" method="post" action="{% url 'home' %}">
                     {% csrf_token %}
                     {{ login_form.as_p }}
                     <button type="submit" class="login-button">Login</button>
@@ -35,14 +31,22 @@
             </div>
         </div>
 
-        <!-- Produtos Disponíveis -->
         <section class="products-section">
             <h2>Produtos Disponíveis:</h2>
             <div class="product-images">
-                <img src="{% static 'myapp/images/camamacrame.jpg' %}" alt="Cama Macramê">
-                <img src="{% static 'myapp/images/camamacrame3.jpg' %}" alt="Cama Macramê 3">
+                {% for product in products|slice:":5" %}
+                    <div class="product" data-id="{{ product.id }}">
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                        <p>Preço: ${{ product.price }}</p>
+                        {% if product.image_url %}
+                            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         </section>
+
     </div>
 
     <script src="{% static 'js/scripts.js' %}"></script>

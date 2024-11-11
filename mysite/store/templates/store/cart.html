@@ -1,9 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
 </head>
 <body>
     <header>
@@ -11,34 +14,20 @@
     </header>
     
     <main>
-        {% if cart_items %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in cart_items %}
-                        <tr>
-                            <td>{{ item.product.name }}</td>
-                            <td>{{ item.quantity }}</td>
-                            <td>{{ item.product.price }}</td>
-                            <td>{{ item.product.price }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="cart-summary">
-                <p><strong>Total Price:</strong> {{ total_price }}</p>
-                <button type="button" onclick="window.location.href='{% url 'checkout' %}'">Proceed to Checkout</button>
-            </div>
-        {% else %}
-            <p>Your cart is empty.</p>
-        {% endif %}
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </main>
+
+    <script src="{% static 'js/cart.js' %}"></script>
 </body>
 </html>
