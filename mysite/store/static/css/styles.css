@@ -8,6 +8,7 @@ body {
 
 .container {
     width: 80%;
+    font-size: 16px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -140,4 +141,24 @@ header {
 
 .memory-products .product {
     background-color: #f0f0f0;
+}
+
+.accessibility-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.accessibility-controls button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.accessibility-controls button:hover {
+    background-color: #45a049;
 }

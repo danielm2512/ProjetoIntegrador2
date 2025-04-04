@@ -1,0 +1,32 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+<h1>Lista de Vendas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID da Venda</th>
+            <th>ID do Produto</th>
+            <th>Data</th>
+            <th>Total de Vendas</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in cl.result_list %}
+        <tr>
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.product.name }}</td>
+            <td>{{ sale.truncated_date }}</td>
+            <td>{{ sale.total_price }}</td>
+            <td>
+                <a href="{% url 'admin:store_sale_change' sale.id %}">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'admin:sales-dashboard' %}" class="button" style="margin-top: 20px;">Abrir Dashboard</a>
+{% endblock %}

@@ -38,23 +38,6 @@ function addProductToMemory(product) {
     sessionStorage.setItem('memoryProducts', JSON.stringify(memoryProducts));
 }
 
-function loadMemoryProducts() {
-    const memoryProducts = JSON.parse(sessionStorage.getItem('memoryProducts')) || [];
-    const memorySection = document.querySelector('.memory-products');
-    memoryProducts.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.classList.add('product');
-        productElement.innerHTML = `
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <p>Preço: $${product.price}</p>
-            <p>Quantidade: ${product.quantity}</p>
-            ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}">` : ''}
-        `;
-        memorySection.appendChild(productElement);
-    });
-}
-
 function storeUserData(username, firstName) {
     sessionStorage.setItem('username', username);
     sessionStorage.setItem('first_name', firstName);
@@ -65,6 +48,24 @@ function displayFirstName() {
     if (firstName) {
         const loginIcon = document.getElementById('login-icon');
         loginIcon.innerHTML = `<div class="first-letter">${firstName.charAt(0)}</div>`;
+    }
+}
+
+function increaseFontSize() {
+    const container = document.querySelector('.container');
+    if (container) {
+        const currentFontSize = window.getComputedStyle(container).fontSize;
+        const newFontSize = parseFloat(currentFontSize) + 2;
+        container.style.fontSize = `${newFontSize}px`;
+    }
+}
+
+function decreaseFontSize() {
+    const container = document.querySelector('.container');
+    if (container) {
+        const currentFontSize = window.getComputedStyle(container).fontSize;
+        const newFontSize = Math.max(parseFloat(currentFontSize) - 2, 12);
+        container.style.fontSize = `${newFontSize}px`;
     }
 }
 
@@ -86,14 +87,15 @@ document.addEventListener('DOMContentLoaded', function() {
             loadMemoryProducts(); 
         });
     });
-    loadMemoryProducts();
     displayFirstName();
     const loginForm = document.getElementById('login-form');
     loginForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(loginForm);
         const username = formData.get('username');
-        const firstName = document.getElementById('first_name').value;
+        const firstNameElement = document.getElementById('first_name');
+        const firstName = firstNameElement ? firstNameElement.value : '';
+ 
         storeUserData(username, firstName);
         loginForm.submit();
     });

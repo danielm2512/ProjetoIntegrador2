@@ -11,11 +11,15 @@
         <header>
             <h1>Bem-vindo ao Patinhas & Caudinhas!</h1>
             <p>Aqui você poderá adquirir os melhores produtos personalizados para o seu pet!</p>
+            <div class="accessibility-controls">
+                <button onclick="increaseFontSize()">A+</button>
+                <button onclick="decreaseFontSize()">A-</button>
+            </div>
             <div class="login-icon" id="login-icon" onclick="handleLoginClick()">
-                <img src="{% static 'myapp/images/login-icon.png' %}" alt="Login">
+                <img src="{% static 'images/login-icon.png' %}" alt="Login">
             </div>
             <div class="buy-icon" onclick="redirectToCart()">
-                <img src="{% static 'myapp/images/buy-icon.png' %}" alt="Buy">
+                <img src="{% static 'images/buy-icon.png' %}" alt="Buy">
             </div>
         </header>
 
@@ -26,6 +30,7 @@
                 <form id="login-form" method="post" action="{% url 'home' %}">
                     {% csrf_token %}
                     {{ login_form.as_p }}
+                    <input type="hidden" id="first_name" value="{{ first_name }}">
                     <button type="submit" class="login-button">Login</button>
                 </form>
             </div>

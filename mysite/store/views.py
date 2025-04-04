@@ -6,8 +6,7 @@ from .models import Product, Profile, Material
 from .forms import MaterialForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import CartItem
-from django.shortcuts import render
-
+from .models import Sale
 
 from django.contrib.auth.forms import AuthenticationForm
 
